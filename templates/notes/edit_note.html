@@ -1,0 +1,22 @@
+{% extends 'base_notes.html' %}
+
+
+{% block content %}
+
+<h2>Edit Note</h2>
+
+{% if user.is_superuser %}
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="Submit" value="Save Changes">
+</form>
+
+{% else %}
+
+<p>You are not authorized to access this content. <a href="/user">Log in</a> to gain access.</p>
+
+{% endif %}
+
+{% endblock %}

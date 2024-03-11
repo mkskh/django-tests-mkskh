@@ -1,0 +1,36 @@
+{% extends 'base_notes.html' %}
+
+
+{% block content %}
+
+<h2>Note number {{ id }}</h2>
+<h3><b>Section: </b>{{ note.section }}</h3>
+{% if user_profile %}
+    {% if user_profile.voted %}
+    <p><b>Votes:</b> {{ note.voted }}. You are already voted</p>
+    {% elif not user_profile.voted %}
+    <p><b>Votes:</b> {{ note.voted }} <a href="{% url 'notes:vote' id %}">Vote</a></p>
+    {% endif %}
+{% else %}
+<p><b>Votes:</b> {{ note.voted }} You are not allowed to vote. <a href="/user/">Log in</a> to gain access</p>
+<p>{{ note.text }}</p>
+{% endif %}
+
+<a href="{% url 'notes:edit_note' id %}">Edit this note</a>
+
+<br>
+<br>
+
+{% if previous_note %}
+    <a href="{% url 'notes:details' previous_note %}">Previous note</a>
+{% else %}
+    <span style="color: rgb(0, 0, 0);">Previous note</span>
+{% endif %}
+
+{% if next_note %}
+    <a href="{% url 'notes:details' next_note %}">Next note</a>
+{% else %}
+    <span style="color: rgb(0, 0, 0);">Next note</span>
+{% endif %}
+
+{% endblock %}

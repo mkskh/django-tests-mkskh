@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<h2>To Do number {{ id }}</h2>
+<h3>{{ todo.topic }}</h3>
+<p>{{ todo.text }}</p>
+<p>{{ todo.status }}</p>
+{% if previous %}
+    <a href="{% url 'todo:details' previous %}">Previous note</a>
+{% else %}
+    <span style="color: rgb(0, 0, 0);">Previous note</span>
+{% endif %}
+
+{% if next%}
+    <a href="{% url 'todo:details' next %}">Next note</a>
+{% else %}
+    <span style="color: rgb(0, 0, 0);">Next note</span>
+{% endif %}
+
+{% else %}
+
+<p><a href="/user/login">Log in</a> to view notes. </p>
+
+{% endif %}
+
+{% endblock %}
